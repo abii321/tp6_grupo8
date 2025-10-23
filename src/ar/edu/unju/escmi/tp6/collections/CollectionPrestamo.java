@@ -22,16 +22,16 @@ public class CollectionPrestamo {
         }
     }
 
-    // ⚡ NUEVO MÉTODO: devolver libro
+    //   devolver libro
     public static void devolverLibro(int idLibro, String fechaDevolucionStr)
             throws LibroNoEncontradoException, LibroNoDisponibleException {
         Libro libro = CollectionLibro.buscarPorId(idLibro);
 
         if (libro == null)
-            throw new LibroNoEncontradoException("❌ Libro con ID " + idLibro + " no encontrado en la colección.");
+            throw new LibroNoEncontradoException("Libro con ID " + idLibro + " no encontrado en la colección.");
 
         if (libro.isEstado())
-            throw new LibroNoDisponibleException("⚠️ El libro ya está disponible. No se puede devolver dos veces.");
+            throw new LibroNoDisponibleException(" El libro ya está disponible. No se puede devolver dos veces.");
 
         Prestamo prestamoPendiente = null;
         for (Prestamo p : prestamos) {
@@ -42,14 +42,18 @@ public class CollectionPrestamo {
         }
 
         if (prestamoPendiente == null)
-            throw new LibroNoEncontradoException("📕 No se encontró un préstamo activo para el libro ID " + idLibro);
+            throw new LibroNoEncontradoException(" No se encontró un préstamo activo para el libro ID " + idLibro);
 
         try {
             LocalDate fechaDevolucion = FechaUtil.convertirStringLocalDate(fechaDevolucionStr);
             prestamoPendiente.registrarDevolucion(fechaDevolucion);
-            System.out.println("✅ Libro devuelto correctamente: " + libro.getTitulo());
+            System.out.println(" Libro devuelto correctamente: " + libro.getTitulo());
         } catch (Exception e) {
-            System.out.println("⚠️ Error al registrar devolución: " + e.getMessage());
+            System.out.println(" Error al registrar devolución: " + e.getMessage());
         }
     }
+      public static void altaPrestamo(Prestamo prestamo) {
+        prestamos.add(prestamo);
+        System.out.println(" Préstamo registrado correctamente en la colección.");
+      }
 }

@@ -53,9 +53,10 @@ public class Prestamo {
         return new Prestamo(1, fecha, null, libro, usuario);
     }
 
-    // 💡 NUEVO: método para registrar devolución
+    // método para registrar devolución
     public void registrarDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
         this.libro.setEstado(true); // marcar libro disponible
     }
 }
+

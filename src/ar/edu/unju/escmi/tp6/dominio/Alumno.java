@@ -1,17 +1,17 @@
 package ar.edu.unju.escmi.tp6.dominio;
 
 public class Alumno extends Usuario {
-    private int curso;
+    private String curso;
     private int nroLibreta;
 
     
-    public Alumno(int id, String nombre, String apellido, String email, int curso, int nroLibreta) {
+    public Alumno(int id, String nombre, String apellido, String email, String curso, int nroLibreta) {
         super(id, nombre, apellido, email);
         this.curso = curso;
         this.nroLibreta = nroLibreta;
     }
 
-    public int getCurso() {
+    public String getCurso() {
         return curso;
     }
 

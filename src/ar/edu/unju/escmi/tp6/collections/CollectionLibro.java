@@ -36,4 +36,9 @@ public class CollectionLibro {
     public static int obtenerProximoId() {
         return ultimoId + 1;
     }
+
+    public static void altaLibro(Libro libro) {
+        libros.put(libro.getId(), libro);
+        System.out.println(" Libro agregado correctamente por el bibliotecario.");
+    }
 }
