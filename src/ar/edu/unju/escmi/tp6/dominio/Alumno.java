@@ -4,6 +4,7 @@ public class Alumno extends Usuario {
     private int curso;
     private int nroLibreta;
 
+    
     public Alumno(int id, String nombre, String apellido, String email, int curso, int nroLibreta) {
         super(id, nombre, apellido, email);
         this.curso = curso;
