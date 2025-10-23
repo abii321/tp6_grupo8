@@ -25,7 +25,7 @@ public class MenuPrincipal {
             switch (opcion) {
                 case 1:
                 case 5:
-                    SubmenuLibros.main(sc);
+                    SubmenuLibros.mostrarMenu(sc);
                     break;
                 case 2:
                     System.out.println(" Saliendo del sistema...");
