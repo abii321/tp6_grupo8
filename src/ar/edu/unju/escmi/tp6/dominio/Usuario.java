@@ -1,10 +1,12 @@
 package ar.edu.unju.escmi.tp6.dominio;
 
+import ar.edu.unju.escmi.tp6.collections.CollectionLibro;
+
 public class Usuario {
-    private int id;
-    private String nombre;
-    private String apellido;
-    private String email;
+    protected int id;
+    protected String nombre;
+    protected String apellido;
+    protected String email;
 
     public Usuario(int id, String nombre, String apellido, String email) {
         this.id = id;
@@ -13,23 +15,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getNombre() { return nombre; }
+    public String getApellido() { return apellido; }
+    public String getEmail() { return email; }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    // ✅ Método usado por CollectionUsuario.listar()
     public void mostrarDatos() {
         System.out.println("=======================================");
         System.out.println("ID: " + id);
@@ -37,8 +28,14 @@ public class Usuario {
         System.out.println("Email: " + email);
     }
 
-    @Override
-    public String toString() {
-        return "[" + id + "] " + nombre + " " + apellido + " - " + email;
+    public void consultarLibrosDisponibles() {
+        System.out.println("\n--- Libros disponibles ---");
+        if (CollectionLibro.libros.isEmpty()) {
+            System.out.println("No hay libros cargados.");
+        } else {
+            CollectionLibro.libros.values().stream()
+                .filter(Libro::isEstado)
+                .forEach(Libro::mostrarDatos);
+        }
     }
 }
