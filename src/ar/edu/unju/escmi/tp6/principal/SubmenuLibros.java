@@ -70,19 +70,19 @@ public class SubmenuLibros {
                 Libro libro = new Libro(titulo, autor, isbn, true);
                 CollectionLibro.agregar(libro);
 
-                System.out.println("✅ Libro registrado correctamente por el bibliotecario " 
+                System.out.println(" Libro registrado correctamente por el bibliotecario " 
                                    + bibliotecario.getNombre() + ".");
             } else if (usuario != null) {
-                System.out.println("❌ Solo los bibliotecarios pueden registrar libros.");
+                System.out.println(" Solo los bibliotecarios pueden registrar libros.");
             } else {
-                System.out.println("⚠️ Usuario no encontrado. Debe registrarse primero.");
+                System.out.println(" Usuario no encontrado. Debe registrarse primero.");
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("⚠️ Error: Ingrese un número válido para el ID o ISBN.");
+            System.out.println(" Error: Ingrese un número válido para el ID o ISBN.");
             sc.nextLine();
         } catch (Exception e) {
-            System.out.println("⚠️ Error inesperado al registrar el libro: " + e.getMessage());
+            System.out.println(" Error inesperado al registrar el libro: " + e.getMessage());
         }
     }
 
@@ -106,3 +106,4 @@ public class SubmenuLibros {
         }
     }
 }
+//---
