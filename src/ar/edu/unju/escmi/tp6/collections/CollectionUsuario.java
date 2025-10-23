@@ -1,19 +1,26 @@
 package ar.edu.unju.escmi.tp6.collections;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import ar.edu.unju.escmi.tp6.dominio.Usuario;
 
 public class CollectionUsuario {
-    public static ArrayList<Usuario> usuarios = new ArrayList<>();
+    public static Map<Integer, Usuario> usuarios = new HashMap<>();
 
-    public static void agregar(Usuario u) {
-        usuarios.add(u);
+    public static void registrar(Usuario usuario) {
+        usuarios.put(usuario.getId(), usuario);
     }
 
-    public static Usuario buscarPorID(int id) {
-        for (Usuario u : usuarios) {
-            if (u.getId() == id) return u;
+    public static Usuario buscarPorId(int id) {
+        return usuarios.get(id);
+    }
+
+    public static void listar() {
+        if (usuarios.isEmpty()) {
+            System.out.println("✖ No hay usuarios registrados.");
+        } else {
+            usuarios.values().forEach(Usuario::mostrarDatos);
         }
-        return null;
     }
 }
+
