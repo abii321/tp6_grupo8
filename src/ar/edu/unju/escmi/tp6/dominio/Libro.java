@@ -1,14 +1,15 @@
 package ar.edu.unju.escmi.tp6.dominio;
 
 public class Libro {
+    private static int contador = 1; // ID automático
     private int id;
     private String titulo;
     private String autor;
-    private String isbn;
+    private long isbn;
     private boolean estado;
 
-    public Libro(int id, String titulo, String autor, String isbn, boolean estado) {
-        this.id = id;
+    public Libro(String titulo, String autor, long isbn, boolean estado) {
+        this.id = contador++;
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
@@ -18,7 +19,7 @@ public class Libro {
     public int getId() { return id; }
     public String getTitulo() { return titulo; }
     public String getAutor() { return autor; }
-    public String getIsbn() { return isbn; }
+    public long getIsbn() { return isbn; }
     public boolean isEstado() { return estado; }
 
     public void setEstado(boolean estado) { this.estado = estado; }
