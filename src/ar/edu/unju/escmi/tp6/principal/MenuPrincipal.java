@@ -190,20 +190,39 @@ public class MenuPrincipal {
         }
     }
 
-    // 🔹 DEVOLVER LIBRO 
-    private static void devolverLibro(Scanner sc) {
-        System.out.println("\n--- Devolver Libro ---");
+   // 🔹 DEVOLVER LIBRO (versión optimizada y sin warnings)
+private static void devolverLibro(Scanner sc) {
+    System.out.println("\n--- Devolver Libro ---");
+
+    int idLibro = -1;
+    String fechaStr;
+
+    try {
+        // 📘 Ingreso del ID del libro
         System.out.print("Ingrese el ID del libro a devolver: ");
-        int idLibro = sc.nextInt();
-        sc.nextLine();
-
-        System.out.print("Ingrese la fecha de devolución (dd/MM/yyyy): ");
-        String fechaStr = sc.nextLine();
-
-        try {
-            CollectionPrestamo.devolverLibro(idLibro, fechaStr);
-        } catch (Exception e) {
-            System.out.println(" " + e.getMessage());
-        }
+        idLibro = sc.nextInt();
+        sc.nextLine(); // limpiar buffer
+    } catch (java.util.InputMismatchException e) {
+        System.out.println("⚠️ Error: el ID debe ser un número entero válido.");
+        sc.nextLine(); // limpiar entrada incorrecta
+        return;
     }
+
+    // 📅 Ingreso de la fecha
+    System.out.print("Ingrese la fecha de devolución (dd/MM/yyyy): ");
+    fechaStr = sc.nextLine();
+
+    try {
+        // Validamos el formato de la fecha (lanza excepción si es inválido)
+        ar.edu.unju.escmi.tp6.utils.FechaUtil.convertirStringLocalDate(fechaStr);
+
+        // Si la validación pasa, realizamos la devolución
+        ar.edu.unju.escmi.tp6.collections.CollectionPrestamo.devolverLibro(idLibro, fechaStr);
+
+    } catch (java.time.format.DateTimeParseException e) {
+        System.out.println("⚠️ Formato de fecha incorrecto. Use el formato dd/MM/yyyy (por ejemplo 23/10/2025).");
+    } catch (Exception e) {
+        System.out.println("⚠️ " + e.getMessage());
+    }
+}
 }
