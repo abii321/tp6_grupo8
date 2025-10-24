@@ -1,7 +1,9 @@
 package ar.edu.unju.escmi.tp6.dominio;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import ar.edu.unju.escmi.tp6.collections.CollectionLibro;
-import ar.edu.unju.escmi.tp6.collections.CollectionPrestamo;
 
 public class Bibliotecario extends Usuario {
     private int legajo;
@@ -15,7 +17,6 @@ public class Bibliotecario extends Usuario {
         return legajo;
     }
 
-    // ✅ Implementación del método abstracto de Usuario
     @Override
     public void mostrarDatos() {
         System.out.println("=== Bibliotecario ===");
@@ -25,31 +26,49 @@ public class Bibliotecario extends Usuario {
         System.out.println("Legajo: " + legajo);
     }
 
-    /**
-     * Registra un préstamo en la colección de préstamos.
-     */
+  //Método para registrar un libro — el bibliotecario ingresa los datos
+
+    public void registrarLibro(Scanner sc) {
+        try {
+            int nuevoId = CollectionLibro.obtenerProximoId();
+            System.out.println("\n--- Registro de Libro ---");
+            System.out.println("ID asignado automáticamente: " + nuevoId);
+
+            System.out.print("Ingrese título: ");
+            String titulo = sc.nextLine();
+            if (titulo.isEmpty()) throw new Exception("El título no puede estar vacío.");
+
+            System.out.print("Ingrese autor: ");
+            String autor = sc.nextLine();
+            if (autor.isEmpty()) throw new Exception("El autor no puede estar vacío.");
+
+            System.out.print("Ingrese ISBN (número): ");
+            long isbn = sc.nextLong();
+            sc.nextLine();
+
+            Libro libro = new Libro(titulo, autor, isbn, true);
+            CollectionLibro.agregar(libro);
+
+            System.out.println("✅ Libro registrado correctamente por el bibliotecario.");
+
+        } catch (InputMismatchException e) {
+            System.out.println("⚠️ Error: el ISBN debe ser un número válido.");
+            sc.nextLine();
+        } catch (Exception e) {
+            System.out.println("⚠️ Error al registrar el libro: " + e.getMessage());
+        }
+    }
+
     public void realizarPrestamo(Prestamo prestamo) {
-        CollectionPrestamo.agregar(prestamo); // método existente
-        System.out.println(" Préstamo registrado por el bibliotecario.");
+        System.out.println("📚 Préstamo registrado por el bibliotecario.");
     }
 
-    /**
-     * Registra un nuevo libro en la colección de libros.
-     */
-    public void registrarLibro(Libro libro) {
-        CollectionLibro.agregar(libro); //  método existente
-        System.out.println("Libro registrado correctamente por el bibliotecario.");
-    }
-
-    /**
-     * Marca un libro como devuelto (estado disponible nuevamente).
-     */
     public void recepcionarLibro(Libro libro) {
         if (libro != null) {
             libro.setEstado(true);
-            System.out.println(" Libro recepcionado correctamente y marcado como disponible.");
+            System.out.println("📘 Libro recepcionado correctamente y marcado como disponible.");
         } else {
-            System.out.println(" No se puede recepcionar un libro nulo.");
+            System.out.println("⚠️ No se puede recepcionar un libro nulo.");
         }
     }
 }
