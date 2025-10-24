@@ -45,7 +45,7 @@ public class MenuPrincipal {
                 System.out.println(" Error inesperado: " + e.getMessage());
             }
 
-        } while (opcion != 9);
+        } while (opcion != 7);
 
         sc.close();
     }
