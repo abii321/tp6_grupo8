@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import ar.edu.unju.escmi.tp6.collections.*;
 import ar.edu.unju.escmi.tp6.dominio.*;
-import ar.edu.unju.escmi.tp6.exceptions.LibroNoEncontradoException;
 import ar.edu.unju.escmi.tp6.utils.FechaUtil;
 
 public class MenuPrincipal {
@@ -31,7 +30,7 @@ public class MenuPrincipal {
                 switch (opcion) {
                     case 1 -> registrarLibro(sc);
                     case 2 -> registrarUsuario(sc);
-                    case 3 -> realizarPrestamo(sc);
+                    //case 3 -> Biblotecario.realizarPrestamo(sc);
                     case 4 -> devolverLibro(sc);
                     case 5 -> CollectionLibro.listar();
                     case 6 -> CollectionUsuario.listarUsuarios();
@@ -54,26 +53,26 @@ public class MenuPrincipal {
     // 🔹 REGISTRAR LIBRO (solo bibliotecario)
     private static void registrarLibro(Scanner sc) {
         try {
-            System.out.print("Ingrese ID del bibliotecario: "); int idUsuario = sc.nextInt(); sc.nextLine();
-            Usuario usuario = CollectionUsuario.buscarPorId(idUsuario);
+            System.out.println("\n--- Registro de Libro ---");
+            System.out.print("Ingrese título: "); String titulo = sc.nextLine();
+            if (titulo.isEmpty()) throw new Exception("El título no puede estar vacío.");
 
-            if (usuario == null) {
-                System.out.println(" Usuario no encontrado.");
-                return;
-            }
-            if (!(usuario instanceof Bibliotecario)) {
-                System.out.println(" Solo los bibliotecarios pueden registrar libros.");
-                return;
-            }
+            System.out.print("Ingrese autor: "); String autor = sc.nextLine();
+            if (autor.isEmpty()) throw new Exception("El autor no puede estar vacío.");
 
-            Bibliotecario biblio = (Bibliotecario) usuario;
-            biblio.registrarLibro(sc); 
+            System.out.print("Ingrese ISBN (número): "); long isbn = sc.nextLong();
+            sc.nextLine();
+
+            Libro libro = new Libro(titulo, autor, isbn);
+            CollectionLibro.altaLibro(libro);
+
+            System.out.println("✅ Libro registrado correctamente por el bibliotecario.");
 
         } catch (InputMismatchException e) {
-            System.out.println(" Error: debe ingresar un número válido para ID o ISBN.");
+            System.out.println("⚠️ Error: el ISBN debe ser un número válido.");
             sc.nextLine();
         } catch (Exception e) {
-            System.out.println(" Error inesperado al registrar libro: " + e.getMessage());
+            System.out.println("⚠️ Error al registrar el libro: " + e.getMessage());
         }
     }
 
@@ -130,7 +129,7 @@ public class MenuPrincipal {
     }
 
     // 🔹 REALIZAR PRÉSTAMO 
-    private static void realizarPrestamo(Scanner sc) {
+    /*private static void realizarPrestamo(Scanner sc) {
         try {
             System.out.println("\n--- Registrar Préstamo ---");
             System.out.print("Ingrese ID del libro: "); int idLibro = sc.nextInt(); sc.nextLine();
@@ -152,12 +151,12 @@ public class MenuPrincipal {
 
             /*Prestamo prestamo = Prestamo.realizarPrestamo(libro, usuario, fechaPrestamo);
             CollectionPrestamo.agregar(prestamo);
-            System.out.println(" Préstamo registrado correctamente.");*/
+            System.out.println(" Préstamo registrado correctamente.");
 
         } catch (Exception e) {
             System.out.println(" Error al registrar préstamo: " + e.getMessage());
         }
-    }
+    }*/
 
     // 🔹 DEVOLVER LIBRO (versión optimizada y sin warnings)
     private static void devolverLibro(Scanner sc) {
