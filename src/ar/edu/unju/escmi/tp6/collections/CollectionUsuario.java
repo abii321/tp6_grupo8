@@ -7,19 +7,9 @@ import ar.edu.unju.escmi.tp6.dominio.*;
 
 public class CollectionUsuario {
     public static Map<Integer, Usuario> usuarios = new HashMap<>();
-    private static int ultimoId = 0; // contador interno de IDs
-
-    //  Generar ID automático
-    public static int generarId() {
-        ultimoId++;
-        return ultimoId;
-    }
 
     //  Registrar usuario (asigna ID automáticamente si no tiene)
     public static void registrarUsuario(Usuario usuario) {
-        if (usuario.getId() == 0) {
-            usuario.setId(generarId());
-        }
         usuarios.put(usuario.getId(), usuario);
     }
 
@@ -38,7 +28,7 @@ public class CollectionUsuario {
     }
 
     //  Crear usuario desde consola (sin pedir ID)
-    public static Usuario crearUsuarioDesdeConsola(Scanner sc) throws Exception {
+    /*public static Usuario crearUsuarioDesdeConsola(Scanner sc) throws Exception {
         System.out.println("\n--- Registro de Usuario ---");
 
         int id = generarId(); //  ID autogenerado
@@ -97,5 +87,5 @@ public class CollectionUsuario {
         } else {
             throw new Exception("Tipo de usuario inválido. Debe ser 1 (Alumno) o 2 (Bibliotecario).");
         }
-    }
+    }*/
 }

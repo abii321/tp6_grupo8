@@ -7,15 +7,10 @@ import ar.edu.unju.escmi.tp6.dominio.Libro;
 
 public class CollectionLibro {
     public static Map<Integer, Libro> libros = new HashMap<>();
-    private static int ultimoId = 0;
 
-    public static int generarId() {
-        ultimoId++;
-        return ultimoId;
-    }
-
-    public static void agregar(Libro libro) {
+    public static void altaLibro(Libro libro) {
         libros.put(libro.getId(), libro);
+        System.out.println(" Libro agregado correctamente por el bibliotecario.");
     }
 
     public static Libro buscarPorId(int id) {
@@ -28,17 +23,12 @@ public class CollectionLibro {
         } else {
             System.out.println("\n📖 Lista de libros:");
             for (Libro libro : libros.values()) {
-                libro.mostrarDatos();
+                libro.mostrarDetalles();
             }
         }
     }
 
-    public static int obtenerProximoId() {
+    /*public static int obtenerProximoId() {
         return ultimoId + 1;
-    }
-
-    public static void altaLibro(Libro libro) {
-        libros.put(libro.getId(), libro);
-        System.out.println(" Libro agregado correctamente por el bibliotecario.");
-    }
+    }*/
 }

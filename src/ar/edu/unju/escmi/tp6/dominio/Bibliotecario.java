@@ -8,59 +8,23 @@ import ar.edu.unju.escmi.tp6.collections.CollectionLibro;
 public class Bibliotecario extends Usuario {
     private int legajo;
 
-    public Bibliotecario(int id, String nombre, String apellido, String email, int legajo) {
-        super(id, nombre, apellido, email);
+    public Bibliotecario(String nombre, String apellido, String email, int legajo) {
+        super(nombre, apellido, email);
         this.legajo = legajo;
     }
 
-    public int getLegajo() {
+    /*public int getLegajo() {
         return legajo;
-    }
-
-    @Override
-    public void mostrarDatos() {
-        System.out.println("=== Bibliotecario ===");
-        System.out.println("ID: " + getId());
-        System.out.println("Nombre: " + getNombre() + " " + getApellido());
-        System.out.println("Email: " + getEmail());
-        System.out.println("Legajo: " + legajo);
-    }
-
-  //Método para registrar un libro — el bibliotecario ingresa los datos
-
-    public void registrarLibro(Scanner sc) {
-        try {
-            int nuevoId = CollectionLibro.obtenerProximoId();
-            System.out.println("\n--- Registro de Libro ---");
-            System.out.println("ID asignado automáticamente: " + nuevoId);
-
-            System.out.print("Ingrese título: ");
-            String titulo = sc.nextLine();
-            if (titulo.isEmpty()) throw new Exception("El título no puede estar vacío.");
-
-            System.out.print("Ingrese autor: ");
-            String autor = sc.nextLine();
-            if (autor.isEmpty()) throw new Exception("El autor no puede estar vacío.");
-
-            System.out.print("Ingrese ISBN (número): ");
-            long isbn = sc.nextLong();
-            sc.nextLine();
-
-            Libro libro = new Libro(titulo, autor, isbn, true);
-            CollectionLibro.agregar(libro);
-
-            System.out.println("✅ Libro registrado correctamente por el bibliotecario.");
-
-        } catch (InputMismatchException e) {
-            System.out.println("⚠️ Error: el ISBN debe ser un número válido.");
-            sc.nextLine();
-        } catch (Exception e) {
-            System.out.println("⚠️ Error al registrar el libro: " + e.getMessage());
-        }
-    }
+    }*/
 
     public void realizarPrestamo(Prestamo prestamo) {
-        System.out.println("📚 Préstamo registrado por el bibliotecario.");
+        CollectionPrestamo.altaPrestamo(prestamo);
+        System.out.println("Préstamo realizado por el bibliotecario.");
+    }
+
+    public void registrarLibro(Libro libro) {
+        CollectionLibro.altaLibro(libro);
+        System.out.println(" Libro registrado correctamente por el bibliotecario.");
     }
 
     public void recepcionarLibro(Libro libro) {
@@ -70,5 +34,14 @@ public class Bibliotecario extends Usuario {
         } else {
             System.out.println("⚠️ No se puede recepcionar un libro nulo.");
         }
+    }
+    
+    @Override
+    public void mostrarDatos() {
+        System.out.println("=======================================");
+        System.out.println("ID: " + id);
+        System.out.println("Nombre Completo: " + nombre + " " + apellido);
+        System.out.println("Email: " + email);
+        System.out.println("Legajo: " + legajo);
     }
 }

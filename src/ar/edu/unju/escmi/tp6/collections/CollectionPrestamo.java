@@ -12,11 +12,12 @@ import ar.edu.unju.escmi.tp6.exceptions.LibroNoEncontradoException;
 public class CollectionPrestamo {
     public static ArrayList<Prestamo> prestamos = new ArrayList<>();
 
-    public static void agregar(Prestamo p) {
-        prestamos.add(p);
+    public static void altaPrestamo(Prestamo prestamo) {
+        prestamos.add(prestamo);
+        System.out.println(" Préstamo registrado correctamente en la colección.");
     }
 
-    public static void listar() {
+    /*public static void listar() {
         for (Prestamo p : prestamos) {
             p.mostrarDatos();
         }
@@ -51,9 +52,6 @@ public class CollectionPrestamo {
         } catch (Exception e) {
             System.out.println(" Error al registrar devolución: " + e.getMessage());
         }
-    }
-      public static void altaPrestamo(Prestamo prestamo) {
-        prestamos.add(prestamo);
-        System.out.println(" Préstamo registrado correctamente en la colección.");
-      }
+    }*/
+      
 }
