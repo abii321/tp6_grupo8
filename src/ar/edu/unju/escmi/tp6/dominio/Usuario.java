@@ -2,31 +2,27 @@ package ar.edu.unju.escmi.tp6.dominio;
 
 import ar.edu.unju.escmi.tp6.collections.CollectionLibro;
 
-public class Usuario {
+public abstract class Usuario {
+    private static int contador = 1; // ID automático
     protected int id;
     protected String nombre;
     protected String apellido;
     protected String email;
 
-    public Usuario(int id, String nombre, String apellido, String email) {
-        this.id = id;
+    public Usuario(String nombre, String apellido, String email) {
+        this.id = contador++;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
     }
 
     public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    /*public void setId(int id) { this.id = id; }
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
-    public String getEmail() { return email; }
+    public String getEmail() { return email; }*/
 
-    public void mostrarDatos() {
-        System.out.println("=======================================");
-        System.out.println("ID: " + id);
-        System.out.println("Nombre: " + nombre + " " + apellido);
-        System.out.println("Email: " + email);
-    }
+    public abstract void mostrarDatos();
 
     public void consultarLibrosDisponibles() {
         System.out.println("\n--- Libros disponibles ---");
@@ -35,7 +31,7 @@ public class Usuario {
         } else {
             CollectionLibro.libros.values().stream()
                 .filter(Libro::isEstado)
-                .forEach(Libro::mostrarDatos);
+                .forEach(Libro::mostrarDetalles);
         }
     }
 }

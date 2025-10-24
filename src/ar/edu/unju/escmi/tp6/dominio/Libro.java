@@ -17,24 +17,28 @@ public class Libro {
     }
 
     public int getId() { return id; }
-    public String getTitulo() { return titulo; }
+    /*public String getTitulo() { return titulo; }
     public String getAutor() { return autor; }
-    public long getIsbn() { return isbn; }
+    public long getIsbn() { return isbn; }*/
     public boolean isEstado() { return estado; }
 
     public void setEstado(boolean estado) { this.estado = estado; }
 
-    public void mostrarDatos() {
+    public void mostrarDatos(){
+        System.out.println( (estado) ? "Disponible" : "No disponible");
+    }
+
+    public void mostrarDetalles() {
         System.out.println("=======================================");
         System.out.println("ID: " + id);
         System.out.println("Título: " + titulo);
         System.out.println("Autor: " + autor);
         System.out.println("ISBN: " + isbn);
-        System.out.println("Estado: " + (estado ? "Disponible" : "No disponible"));
+        mostrarDatos();
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "[" + id + "] " + titulo + " - " + autor + " (" + (estado ? "Disponible" : "No disponible") + ")";
-    }
+    }*/
 }

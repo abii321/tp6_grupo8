@@ -6,29 +6,30 @@ import ar.edu.unju.escmi.tp6.exceptions.UsuarioNoRegistradoException;
 import ar.edu.unju.escmi.tp6.exceptions.LibroNoEncontradoException;
 
 public class Prestamo {
+    private static int contador = 1; // ID automático
     private int id;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
     private Libro libro;
     private Usuario usuario;
 
-    public Prestamo(int id, LocalDate fechaPrestamo, LocalDate fechaDevolucion, Libro libro, Usuario usuario) {
-        this.id = id;
+    public Prestamo(LocalDate fechaPrestamo, LocalDate fechaDevolucion, Libro libro, Usuario usuario) {
+        this.id = contador++;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
         this.libro = libro;
         this.usuario = usuario;
     }
 
-    public int getId() { return id; }
+    /*public int getId() { return id; }
     public LocalDate getFechaPrestamo() { return fechaPrestamo; }
     public LocalDate getFechaDevolucion() { return fechaDevolucion; }
     public Libro getLibro() { return libro; }
-    public Usuario getUsuario() { return usuario; }
+    public Usuario getUsuario() { return usuario; }*/
 
-    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+    /*public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
-    }
+    }*/
 
     public void mostrarDatos() {
         System.out.println("=======================================");
@@ -36,11 +37,11 @@ public class Prestamo {
         System.out.println("Fecha de préstamo: " + fechaPrestamo);
         System.out.println("Fecha de devolución: " +
             (fechaDevolucion != null ? fechaDevolucion : "Aún no devuelto"));
-        System.out.println("Libro: " + (libro != null ? libro.getTitulo() : "Sin libro"));
-        System.out.println("Usuario: " + (usuario != null ? usuario.getNombre() + " " + usuario.getApellido() : "Sin usuario"));
+        System.out.println("Libro: " + libro);
+        System.out.println("Usuario: " + usuario);
     }
 
-    public static Prestamo realizarPrestamo(Libro libro, Usuario usuario, LocalDate fecha)
+    /*public static Prestamo realizarPrestamo(Libro libro, Usuario usuario, LocalDate fecha)
             throws Exception {
         if (usuario == null)
             throw new UsuarioNoRegistradoException("Usuario no registrado.");
@@ -57,6 +58,6 @@ public class Prestamo {
     public void registrarDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
         this.libro.setEstado(true); // marcar libro disponible
-    }
+    }*/
 }
 
