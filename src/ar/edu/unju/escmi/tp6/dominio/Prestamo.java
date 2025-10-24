@@ -1,6 +1,8 @@
 package ar.edu.unju.escmi.tp6.dominio;
 
 import java.time.LocalDate;
+
+import ar.edu.unju.escmi.tp6.collections.CollectionPrestamo;
 import ar.edu.unju.escmi.tp6.exceptions.LibroNoDisponibleException;
 import ar.edu.unju.escmi.tp6.exceptions.UsuarioNoRegistradoException;
 import ar.edu.unju.escmi.tp6.exceptions.LibroNoEncontradoException;
@@ -41,23 +43,15 @@ public class Prestamo {
         System.out.println("Usuario: " + usuario);
     }
 
-    /*public static Prestamo realizarPrestamo(Libro libro, Usuario usuario, LocalDate fecha)
-            throws Exception {
-        if (usuario == null)
-            throw new UsuarioNoRegistradoException("Usuario no registrado.");
-        if (libro == null)
-            throw new LibroNoEncontradoException("Libro no encontrado.");
-        if (!libro.isEstado())
-            throw new LibroNoDisponibleException("El libro no está disponible.");
-
-        libro.setEstado(false); // marcar como prestado
-        return new Prestamo(1, fecha, null, libro, usuario);
+    public static void recepcionarLibro(Libro libro, String fecha) {
+        Prestamo p = CollectionPrestamo.buscarLibro(libro);
+        if(p==null){
+            System.out.println("El libro nunca se presto");
+            return;
+        }
+        p.registrarDevolucion(fecha);
+        libro.setEstado(true);
+        System.out.println("Recepcion realizada correctamente");
     }
-
-    // método para registrar devolución
-    public void registrarDevolucion(LocalDate fechaDevolucion) {
-        this.fechaDevolucion = fechaDevolucion;
-        this.libro.setEstado(true); // marcar libro disponible
-    }*/
 }
 

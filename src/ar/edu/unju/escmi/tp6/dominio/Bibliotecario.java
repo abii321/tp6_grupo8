@@ -39,9 +39,7 @@ public class Bibliotecario extends Usuario {
             System.out.println("⚠️ Error al registrar el libro: " + e.getMessage());
         }
     }
-
-
-
+    
     public static void recepcionarLibro(Libro libro, String fecha) {
         Prestamo p = CollectionPrestamo.buscarLibro(libro);
         if(p==null){
