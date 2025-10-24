@@ -8,20 +8,16 @@ public class Libro {
     private long isbn;
     private boolean estado;
 
-    public Libro(String titulo, String autor, long isbn, boolean estado) {
+    public Libro(String titulo, String autor, long isbn) {
         this.id = contador++;
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
-        this.estado = estado;
+        this.estado = true;
     }
 
     public int getId() { return id; }
-    /*public String getTitulo() { return titulo; }
-    public String getAutor() { return autor; }
-    public long getIsbn() { return isbn; }*/
     public boolean isEstado() { return estado; }
-
     public void setEstado(boolean estado) { this.estado = estado; }
 
     public void mostrarDatos(){
@@ -36,9 +32,4 @@ public class Libro {
         System.out.println("ISBN: " + isbn);
         mostrarDatos();
     }
-
-    /*@Override
-    public String toString() {
-        return "[" + id + "] " + titulo + " - " + autor + " (" + (estado ? "Disponible" : "No disponible") + ")";
-    }*/
 }

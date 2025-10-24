@@ -8,12 +8,12 @@ import ar.edu.unju.escmi.tp6.exceptions.LibroNoEncontradoException;
 public class Prestamo {
     private static int contador = 1; // ID automático
     private int id;
-    private LocalDate fechaPrestamo;
-    private LocalDate fechaDevolucion;
+    private String fechaPrestamo;
+    private String fechaDevolucion;
     private Libro libro;
     private Usuario usuario;
 
-    public Prestamo(LocalDate fechaPrestamo, LocalDate fechaDevolucion, Libro libro, Usuario usuario) {
+    public Prestamo(String fechaPrestamo, String fechaDevolucion, Libro libro, Usuario usuario) {
         this.id = contador++;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
@@ -21,15 +21,15 @@ public class Prestamo {
         this.usuario = usuario;
     }
 
+    public Libro getLibro() { return libro; }
     /*public int getId() { return id; }
     public LocalDate getFechaPrestamo() { return fechaPrestamo; }
     public LocalDate getFechaDevolucion() { return fechaDevolucion; }
-    public Libro getLibro() { return libro; }
     public Usuario getUsuario() { return usuario; }*/
 
-    /*public void setFechaDevolucion(LocalDate fechaDevolucion) {
+    public void registrarDevolucion(String fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
-    }*/
+    }
 
     public void mostrarDatos() {
         System.out.println("=======================================");

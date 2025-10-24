@@ -17,41 +17,13 @@ public class CollectionPrestamo {
         System.out.println(" Préstamo registrado correctamente en la colección.");
     }
 
-    /*public static void listar() {
-        for (Prestamo p : prestamos) {
-            p.mostrarDatos();
-        }
-    }
-
-    //   devolver libro
-    public static void devolverLibro(int idLibro, String fechaDevolucionStr)
-            throws LibroNoEncontradoException, LibroNoDisponibleException {
-        Libro libro = CollectionLibro.buscarPorId(idLibro);
-
-        if (libro == null)
-            throw new LibroNoEncontradoException("Libro con ID " + idLibro + " no encontrado en la colección.");
-
-        if (libro.isEstado())
-            throw new LibroNoDisponibleException(" El libro ya está disponible. No se puede devolver dos veces.");
-
-        Prestamo prestamoPendiente = null;
-        for (Prestamo p : prestamos) {
-            if (p.getLibro().getId() == idLibro && p.getFechaDevolucion() == null) {
-                prestamoPendiente = p;
-                break;
+    public static Prestamo buscarLibro(Libro libro){
+        for(int i=0; i<prestamos.size(); i++){
+            if(prestamos.get(i).getLibro().getId() == libro.getId()){
+                return prestamos.get(i);
             }
         }
-
-        if (prestamoPendiente == null)
-            throw new LibroNoEncontradoException(" No se encontró un préstamo activo para el libro ID " + idLibro);
-
-        try {
-            LocalDate fechaDevolucion = FechaUtil.convertirStringLocalDate(fechaDevolucionStr);
-            prestamoPendiente.registrarDevolucion(fechaDevolucion);
-            System.out.println(" Libro devuelto correctamente: " + libro.getTitulo());
-        } catch (Exception e) {
-            System.out.println(" Error al registrar devolución: " + e.getMessage());
-        }
-    }*/
+        return null;
+    }
       
 }

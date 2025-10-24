@@ -20,12 +20,4 @@ public class Alumno extends Usuario {
         System.out.println("Nro de Libreta: "+nroLibreta);
     }
 
-    /*public String getCurso() {
-        return curso;
-    }
-
-    public int getNroLibreta() {
-        return nroLibreta;
-    }*/
-    
 }

@@ -27,8 +27,4 @@ public class CollectionLibro {
             }
         }
     }
-
-    /*public static int obtenerProximoId() {
-        return ultimoId + 1;
-    }*/
 }

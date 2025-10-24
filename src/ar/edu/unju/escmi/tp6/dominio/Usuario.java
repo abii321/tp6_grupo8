@@ -17,10 +17,6 @@ public abstract class Usuario {
     }
 
     public int getId() { return id; }
-    /*public void setId(int id) { this.id = id; }
-    public String getNombre() { return nombre; }
-    public String getApellido() { return apellido; }
-    public String getEmail() { return email; }*/
 
     public abstract void mostrarDatos();
 
