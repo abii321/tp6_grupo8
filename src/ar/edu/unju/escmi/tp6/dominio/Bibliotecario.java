@@ -1,7 +1,9 @@
 package ar.edu.unju.escmi.tp6.dominio;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import ar.edu.unju.escmi.tp6.collections.CollectionLibro;
-import ar.edu.unju.escmi.tp6.collections.CollectionPrestamo;
 
 public class Bibliotecario extends Usuario {
     private int legajo;
@@ -26,8 +28,12 @@ public class Bibliotecario extends Usuario {
     }
 
     public void recepcionarLibro(Libro libro) {
-        libro.setEstado(true);
-        System.out.println(" Libro recepcionado correctamente y marcado como disponible.");
+        if (libro != null) {
+            libro.setEstado(true);
+            System.out.println("📘 Libro recepcionado correctamente y marcado como disponible.");
+        } else {
+            System.out.println("⚠️ No se puede recepcionar un libro nulo.");
+        }
     }
     
     @Override
