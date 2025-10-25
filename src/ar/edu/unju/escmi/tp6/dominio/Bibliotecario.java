@@ -26,9 +26,9 @@ public class Bibliotecario extends Usuario {
         System.out.println("Recepcion realizada correctamente");
     }
 
-    public static void registrarPrestamo(Prestamo p){
-        CollectionPrestamo.altaPrestamo(p);
-        System.out.println("ID del prestamo: "+p.getId());
+    public static void registrarPrestamo(Prestamo prestamo){
+        CollectionPrestamo.altaPrestamo(prestamo);
+        System.out.println("ID del prestamo: "+prestamo.getId());
         System.out.println("Prestamo realizado correctamente");
     }
     
@@ -41,9 +41,4 @@ public class Bibliotecario extends Usuario {
         System.out.println("Legajo: " + legajo);
     }
 
-    public static void realizarPrestamo(Prestamo prestamo) {
-        CollectionPrestamo.altaPrestamo(prestamo);
-        System.out.println("ID del prestamo:"+prestamo.getId());
-        System.out.println("Prestamo realizado correctamente");
-    }
 }
