@@ -11,14 +11,14 @@ public class Bibliotecario extends Usuario {
         this.legajo = legajo;
     }
     
-    public static void recepcionarLibro(Libro libro, LocalDate fecha) {
-        Prestamo p = CollectionPrestamo.buscarLibro(libro);
+    public static void recepcionarLibro(Usuario usuario, Libro libro, LocalDate fecha) {
+        Prestamo p = CollectionPrestamo.buscarLibro(usuario,libro);   
         if(p==null){
-            System.out.println("El libro nunca se presto");
+            System.out.println("El libro nunca se presto a este usuario");
             return;
         }
-        else if( libro.getEstado()==false ) {
-            System.out.println("El libro ya se devolvio anteriormente");
+        else if( libro.getEstado()==true ) {
+            System.out.println("El libro ya se devolvio");
             return;
         }
         p.registrarDevolucion(fecha);
@@ -28,6 +28,7 @@ public class Bibliotecario extends Usuario {
 
     public static void registrarPrestamo(Prestamo prestamo){
         CollectionPrestamo.altaPrestamo(prestamo);
+        prestamo.getLibro().setEstado(false);
         System.out.println("ID del prestamo: "+prestamo.getId());
         System.out.println("Prestamo realizado correctamente");
     }

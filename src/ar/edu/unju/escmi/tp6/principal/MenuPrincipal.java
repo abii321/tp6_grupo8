@@ -162,6 +162,10 @@ public class MenuPrincipal {
             System.out.print("Ingrese la fecha del préstamo (dd/MM/yyyy): "); String fechaStr = sc.nextLine();
             LocalDate fechaPrestamo = FechaUtil.convertirStringLocalDate(fechaStr);
 
+            if( libro.getEstado()==false) {
+                System.out.println("El libro no esta disponible");
+                return;
+            }
             Prestamo nuevo = new Prestamo(fechaPrestamo,null,libro,usuario);
             Bibliotecario.registrarPrestamo(nuevo);
 
@@ -176,32 +180,33 @@ public class MenuPrincipal {
         }
     }
 
-    // 🔹 DEVOLVER LIBRO (versión optimizada y sin warnings)
+    // 🔹 DEVOLVER LIBRO 
     private static void devolverLibro(Scanner sc) {
         System.out.println("\n--- Devolver Libro ---");
-        int idLibro; String fechaStr;
+        int idUser, idLibro; String fechaStr;
         try {
+            System.out.println("Ingrese el ID del usuario: "); idUser = sc.nextInt(); sc.nextLine();
             System.out.print("Ingrese el ID del libro a devolver: "); idLibro = sc.nextInt(); sc.nextLine(); 
-        } catch (java.util.InputMismatchException e) {
-            System.out.println("Error: el ID debe ser un número entero válido.");
-            sc.nextLine(); // limpiar entrada incorrecta
-            return;
-        }
-        System.out.print("Ingrese la fecha de devolución (dd/MM/yyyy): ");
-        fechaStr = sc.nextLine();
-        try {
-            // Validamos el formato de la fecha (lanza excepción si es inválido)
-            FechaUtil.convertirStringLocalDate(fechaStr);
-
-            // Si la validación pasa, realizamos la devolución
+            System.out.print("Ingrese la fecha de devolución (dd/MM/yyyy): "); fechaStr = sc.nextLine();
+    
+            Usuario usuario = CollectionUsuario.buscarPorId(idUser);
+            if( usuario == null ) throw new UsuarioNoRegistradoException("No existe un usuario con ese ID");
             Libro libro = CollectionLibro.buscarPorId(idLibro);
-            if(libro == null) {System.out.println("No existe el libro"); return; }
-            LocalDate fecha = FechaUtil.convertirStringLocalDate(fechaStr);
-            Bibliotecario.recepcionarLibro(libro,fecha);
-            //CollectionPrestamo.devolverLibro(idLibro, fechaStr);
+            if(libro == null)throw new LibroNoEncontradoException("No existe un libro con ese ID.");
+            
+            LocalDate fecha=null;
+            try{
+                fecha = FechaUtil.convertirStringLocalDate(fechaStr);
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("Formato de fecha incorrecto. Use el formato dd/MM/yyyy (por ejemplo 23/10/2025).");
+            } 
 
-        } catch (java.time.format.DateTimeParseException e) {
-            System.out.println("Formato de fecha incorrecto. Use el formato dd/MM/yyyy (por ejemplo 23/10/2025).");
+            Bibliotecario.recepcionarLibro(usuario, libro, fecha);        
+        } catch (InputMismatchException e) {
+            System.out.println("Error: los IDs deben ser números enteros válidos.");
+            sc.nextLine();
+        } catch (UsuarioNoRegistradoException | LibroNoEncontradoException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
