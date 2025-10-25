@@ -30,7 +30,7 @@ public class MenuPrincipal {
                 switch (opcion) {
                     case 1 -> registrarLibro(sc);
                     case 2 -> registrarUsuario(sc);
-                    //case 3 -> Biblotecario.realizarPrestamo(sc);
+                    case 3 -> Bibliotecario.realizarPrestamo(sc);
                     case 4 -> devolverLibro(sc);
                     case 5 -> CollectionLibro.listar();
                     case 6 -> CollectionUsuario.listarUsuarios();

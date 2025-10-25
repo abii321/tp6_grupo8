@@ -63,7 +63,7 @@ public class Bibliotecario extends Usuario {
         System.out.println("Legajo: " + legajo);
     }
 
-    private static void realizarPrestamo(Scanner sc) {
+    public static void realizarPrestamo(Scanner sc) {
         try {
             System.out.println("\n--- Registrar Préstamo ---");
             System.out.print("Ingrese ID del libro: ");
