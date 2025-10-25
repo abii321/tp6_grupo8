@@ -201,7 +201,7 @@ public class MenuPrincipal {
                 System.out.println("Formato de fecha incorrecto. Use el formato dd/MM/yyyy (por ejemplo 23/10/2025).");
             } 
 
-            Bibliotecario.recepcionarLibro(usuario, libro, fecha);        
+            Bibliotecario.recepcionarLibro(idUser, libro, fecha);        
         } catch (InputMismatchException e) {
             System.out.println("Error: los IDs deben ser números enteros válidos.");
             sc.nextLine();
