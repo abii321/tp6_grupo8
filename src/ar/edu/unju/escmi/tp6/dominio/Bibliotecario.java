@@ -5,7 +5,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import ar.edu.unju.escmi.tp6.collections.CollectionLibro;
+import ar.edu.unju.escmi.tp6.collections.CollectionUsuario;
 import ar.edu.unju.escmi.tp6.collections.CollectionPrestamo;
+import ar.edu.unju.escmi.tp6.utils.FechaUtil;
+import java.time.LocalDate;
 
 public class Bibliotecario extends Usuario {
     private int legajo;
@@ -58,5 +61,34 @@ public class Bibliotecario extends Usuario {
         System.out.println("Nombre Completo: " + nombre + " " + apellido);
         System.out.println("Email: " + email);
         System.out.println("Legajo: " + legajo);
+    }
+
+    private static void realizarPrestamo(Scanner sc) {
+        try {
+            System.out.println("\n--- Registrar Préstamo ---");
+            System.out.print("Ingrese ID del libro: ");
+            int idLibro = sc.nextInt(); sc.nextLine();
+            Libro libro = CollectionLibro.buscarPorId(idLibro);
+            if (libro == null) {
+                System.out.println(" No existe un libro con ese ID.");
+                return;
+            }
+
+            System.out.print("Ingrese ID del usuario: ");
+            int idUsuario = sc.nextInt(); sc.nextLine();
+            Usuario usuario = CollectionUsuario.buscarPorId(idUsuario);
+            if (usuario == null) {
+                System.out.println(" No existe un usuario con ese ID.");
+                return;
+            }
+
+            System.out.print("Ingrese la fecha del préstamo (dd/MM/yyyy): ");
+            String fechaStr = sc.nextLine();
+            LocalDate fechaPrestamo = FechaUtil.convertirStringLocalDate(fechaStr);
+
+
+        } catch (Exception e) {
+            System.out.println(" Error al registrar préstamo: " + e.getMessage());
+        }
     }
 }
