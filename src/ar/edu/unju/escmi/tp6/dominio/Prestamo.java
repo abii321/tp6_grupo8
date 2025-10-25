@@ -2,8 +2,6 @@ package ar.edu.unju.escmi.tp6.dominio;
 
 import java.time.LocalDate;
 
-import ar.edu.unju.escmi.tp6.collections.CollectionPrestamo;
-
 public class Prestamo {
     private static int contador = 1; // ID automático
     private int id;
@@ -22,6 +20,7 @@ public class Prestamo {
 
     public int getId() { return id; }
     public Libro getLibro() { return libro; }
+    public Usuario getUsuario() { return usuario; }
 
     public void registrarDevolucion(LocalDate fechaDev) {
         this.fechaDevolucion = fechaDev;
