@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import ar.edu.unju.escmi.tp6.collections.*;
 import ar.edu.unju.escmi.tp6.dominio.*;
+import ar.edu.unju.escmi.tp6.exceptions.*;
 import ar.edu.unju.escmi.tp6.utils.FechaUtil;
+import java.time.LocalDate;
 
 public class MenuPrincipal {
 
@@ -30,7 +32,7 @@ public class MenuPrincipal {
                 switch (opcion) {
                     case 1 -> registrarLibro(sc);
                     case 2 -> registrarUsuario(sc);
-                    case 3 -> Bibliotecario.realizarPrestamo(sc);
+                    case 3 -> realizarPrestamo(sc);
                     case 4 -> devolverLibro(sc);
                     case 5 -> CollectionLibro.listar();
                     case 6 -> CollectionUsuario.listarUsuarios();
@@ -65,23 +67,21 @@ public class MenuPrincipal {
 
             Libro libro = new Libro(titulo, autor, isbn);
             CollectionLibro.altaLibro(libro);
-
-            System.out.println("✅ Libro registrado correctamente por el bibliotecario.");
-
         } catch (InputMismatchException e) {
-            System.out.println("⚠️ Error: el ISBN debe ser un número válido.");
+            System.out.println("Error: el ISBN debe ser un número válido.");
             sc.nextLine();
         } catch (Exception e) {
-            System.out.println("⚠️ Error al registrar el libro: " + e.getMessage());
+            System.out.println("Error al registrar el libro: " + e.getMessage());
         }
     }
 
     // 🔹 REGISTRAR USUARIO
-    private static void registrarUsuario(Scanner sc) throws Exception {
+   private static void registrarUsuario(Scanner sc) {
+    try {
         Usuario nuevo;
 
         System.out.println("\n--- Registro de Usuario ---");
-        // VALIDACIONES DE ENTRADA -----------------------
+
         System.out.print("Ingrese nombre: "); String nombre = sc.nextLine().trim();
         if (nombre.isEmpty()) throw new Exception("El nombre no puede estar vacío.");
 
@@ -90,34 +90,44 @@ public class MenuPrincipal {
 
         System.out.print("Ingrese email: "); String email = sc.nextLine().trim();
         if (email.isEmpty() || !email.contains("@")) throw new Exception("Debe ingresar un email válido (con '@').");
-
+        
         System.out.println("Tipo de usuario:");
         System.out.println("1 - Alumno");
         System.out.println("2 - Bibliotecario");
-        int tipo = sc.nextInt(); sc.nextLine();
-        if (!sc.hasNextInt()) {
-            sc.nextLine(); // limpiar entrada incorrecta
+        int tipo;
+        try {
+            tipo = sc.nextInt(); sc.nextLine(); 
+        } catch (InputMismatchException e) {
+            sc.nextLine();
             throw new Exception("Debe ingresar un número (1 o 2).");
         }
-    
+
         if (tipo == 1) {
             System.out.print("Ingrese curso: "); String curso = sc.nextLine().trim();
             if (curso.isEmpty()) throw new Exception("El curso no puede estar vacío.");
 
-            System.out.print("Ingrese número de libreta: "); int nroLibreta = sc.nextInt(); sc.nextLine();
-            if (!sc.hasNextInt()) {
-                sc.nextLine(); // limpiar entrada incorrecta
+            int nroLibreta;
+            try {
+                System.out.print("Ingrese número de libreta: ");
+                nroLibreta = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException e) {
+                sc.nextLine();
                 throw new Exception("El número de libreta debe ser un valor numérico.");
             }
-
             nuevo = new Alumno(nombre, apellido, email, curso, nroLibreta);
 
         } else if (tipo == 2) {
-            System.out.print("Ingrese legajo: "); int legajo = sc.nextInt(); sc.nextLine();
-            if (!sc.hasNextInt()) {
+            int legajo;
+            try {
+                System.out.print("Ingrese legajo: ");
+                legajo = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException e) {
                 sc.nextLine();
                 throw new Exception("El legajo debe ser un número entero.");
             }
+
             nuevo = new Bibliotecario(nombre, apellido, email, legajo);
 
         } else {
@@ -125,9 +135,44 @@ public class MenuPrincipal {
         }
 
         CollectionUsuario.registrarUsuario(nuevo);
-        System.out.println(" Usuario registrado correctamente.");
-    }
 
+    } catch (InputMismatchException e) {
+        System.out.println("Error: debe ingresar valores numéricos válidos.");
+        sc.nextLine();
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+}
+
+    private static void realizarPrestamo(Scanner sc){
+        try {
+            System.out.println("\n--- Registrar Préstamo ---");
+
+            System.out.print("Ingrese ID del usuario: "); int idUsuario = sc.nextInt(); sc.nextLine();
+            Usuario usuario = CollectionUsuario.buscarPorId(idUsuario);
+            if (usuario == null) throw new UsuarioNoRegistradoException("No existe un usuario con ese ID.");
+
+            System.out.print("Ingrese ID del libro: "); int idLibro = sc.nextInt(); sc.nextLine();
+            Libro libro = CollectionLibro.buscarPorId(idLibro);
+            if (libro == null) throw new LibroNoEncontradoException("No existe un libro con ese ID.");
+            if (!libro.getEstado()) throw new LibroNoDisponibleException("El libro no está disponible para préstamo.");
+
+            System.out.print("Ingrese la fecha del préstamo (dd/MM/yyyy): "); String fechaStr = sc.nextLine();
+            LocalDate fechaPrestamo = FechaUtil.convertirStringLocalDate(fechaStr);
+
+            Prestamo nuevo = new Prestamo(fechaPrestamo,null,libro,usuario);
+            Bibliotecario.registrarPrestamo(nuevo);
+
+        } catch (UsuarioNoRegistradoException | LibroNoEncontradoException | LibroNoDisponibleException e) {
+            System.out.println( e.getMessage());
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println("Fecha inválida. Use el formato dd/MM/yyyy.");
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Error: debe ingresar un número entero válido.");
+        } catch (Exception e) {
+            System.out.println("Error inesperado: " + e.getMessage());
+        }
+    }
 
     // 🔹 DEVOLVER LIBRO (versión optimizada y sin warnings)
     private static void devolverLibro(Scanner sc) {
@@ -136,7 +181,7 @@ public class MenuPrincipal {
         try {
             System.out.print("Ingrese el ID del libro a devolver: "); idLibro = sc.nextInt(); sc.nextLine(); 
         } catch (java.util.InputMismatchException e) {
-            System.out.println("⚠️ Error: el ID debe ser un número entero válido.");
+            System.out.println("Error: el ID debe ser un número entero válido.");
             sc.nextLine(); // limpiar entrada incorrecta
             return;
         }
@@ -149,13 +194,14 @@ public class MenuPrincipal {
             // Si la validación pasa, realizamos la devolución
             Libro libro = CollectionLibro.buscarPorId(idLibro);
             if(libro == null) {System.out.println("No existe el libro"); return; }
-            Bibliotecario.recepcionarLibro(libro,fechaStr);
+            LocalDate fecha = FechaUtil.convertirStringLocalDate(fechaStr);
+            Bibliotecario.recepcionarLibro(libro,fecha);
             //CollectionPrestamo.devolverLibro(idLibro, fechaStr);
 
         } catch (java.time.format.DateTimeParseException e) {
-            System.out.println("⚠️ Formato de fecha incorrecto. Use el formato dd/MM/yyyy (por ejemplo 23/10/2025).");
+            System.out.println("Formato de fecha incorrecto. Use el formato dd/MM/yyyy (por ejemplo 23/10/2025).");
         } catch (Exception e) {
-            System.out.println("⚠️ " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 

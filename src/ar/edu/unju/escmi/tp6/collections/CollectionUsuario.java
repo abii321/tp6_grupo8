@@ -10,6 +10,8 @@ public class CollectionUsuario {
     //  Registrar usuario (asigna ID automáticamente si no tiene)
     public static void registrarUsuario(Usuario usuario) {
         usuarios.put(usuario.getId(), usuario);
+        System.out.println("ID asignado: "+usuario.getId());
+        System.out.println("Usuario registrado correctamente.");
     }
 
     //  Buscar usuario por ID
