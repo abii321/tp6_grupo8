@@ -11,8 +11,8 @@ public class Bibliotecario extends Usuario {
         this.legajo = legajo;
     }
     
-    public static void recepcionarLibro(Usuario usuario, Libro libro, LocalDate fecha) {
-        Prestamo p = CollectionPrestamo.buscarLibro(usuario,libro);   
+    public static void recepcionarLibro(int idUser, Libro libro, LocalDate fecha) {
+        Prestamo p = CollectionPrestamo.buscarPrestamo(idUser,libro);   
         if(p==null){
             System.out.println("El libro nunca se presto a este usuario");
             return;
