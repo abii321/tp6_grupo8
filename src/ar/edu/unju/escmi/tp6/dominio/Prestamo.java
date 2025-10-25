@@ -23,8 +23,8 @@ public class Prestamo {
     public int getId() { return id; }
     public Libro getLibro() { return libro; }
 
-    public void registrarDevolucion(LocalDate fechaDevolucion) {
-        this.fechaDevolucion = fechaDevolucion;
+    public void registrarDevolucion(LocalDate fechaDev) {
+        this.fechaDevolucion = fechaDev;
     }
 
     public void mostrarDatos() {
@@ -35,17 +35,6 @@ public class Prestamo {
             (fechaDevolucion != null ? fechaDevolucion : "Aún no devuelto"));
         System.out.println("Libro: " + libro);
         System.out.println("Usuario: " + usuario);
-    }
-
-    public static void recepcionarLibro(Libro libro, LocalDate fecha) {
-        Prestamo p = CollectionPrestamo.buscarLibro(libro);
-        if(p==null){
-            System.out.println("El libro nunca se presto");
-            return;
-        }
-        p.registrarDevolucion(fecha);
-        libro.setEstado(true);
-        System.out.println("Recepcion realizada correctamente");
     }
 }
 

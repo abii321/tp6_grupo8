@@ -20,7 +20,7 @@ public class Libro {
     public void setEstado(boolean estado) { this.estado = estado; }
     public boolean getEstado() { return estado; }
 
-    public void mostrarDatos(){
+    private void mostrarDatos(){
         System.out.println( (estado) ? "Disponible" : "No disponible");
     }
 

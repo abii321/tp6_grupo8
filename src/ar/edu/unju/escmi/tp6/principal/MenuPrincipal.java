@@ -24,7 +24,8 @@ public class MenuPrincipal {
                 System.out.println("4 - Devolucion de libro");
                 System.out.println("5 - Listar libros");
                 System.out.println("6 - Listar usuarios");
-                System.out.println("7 - Salir");
+                System.out.println("7 - Consultar libros disponibles");
+                System.out.println("8 - Salir");
                 System.out.print("Seleccione una opción: ");
 
                 opcion = sc.nextInt(); sc.nextLine(); 
@@ -36,7 +37,8 @@ public class MenuPrincipal {
                     case 4 -> devolverLibro(sc);
                     case 5 -> CollectionLibro.listar();
                     case 6 -> CollectionUsuario.listarUsuarios();
-                    case 7 -> System.out.println(" Saliendo del sistema...");
+                    case 7 -> Usuario.consultarLibrosDisponibles();
+                    case 8 -> System.out.println(" Saliendo del sistema...");
                     default -> System.out.println(" Opción inválida. Intente nuevamente.");
                 }
 
@@ -47,7 +49,7 @@ public class MenuPrincipal {
                 System.out.println(" Error inesperado: " + e.getMessage());
             }
 
-        } while (opcion != 7);
+        } while (opcion != 8);
 
         sc.close();
     }

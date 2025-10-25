@@ -3,7 +3,7 @@ package ar.edu.unju.escmi.tp6.dominio;
 import ar.edu.unju.escmi.tp6.collections.CollectionLibro;
 
 public abstract class Usuario {
-    private static int contador = 1; // ID automático
+    protected static int contador = 1; // ID automático
     protected int id;
     protected String nombre;
     protected String apellido;
@@ -20,7 +20,7 @@ public abstract class Usuario {
 
     public abstract void mostrarDatos();
 
-    public void consultarLibrosDisponibles() {
+    public static void consultarLibrosDisponibles() {
         System.out.println("\n--- Libros disponibles ---");
         if (CollectionLibro.libros.isEmpty()) {
             System.out.println("No hay libros cargados.");
