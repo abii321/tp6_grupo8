@@ -26,7 +26,7 @@ public abstract class Usuario {
             System.out.println("No hay libros cargados.");
         } else {
             CollectionLibro.libros.values().stream()
-                .filter(Libro::isEstado)
+                .filter(Libro::getEstado)
                 .forEach(Libro::mostrarDetalles);
         }
     }

@@ -10,6 +10,7 @@ public class CollectionLibro {
 
     public static void altaLibro(Libro libro) {
         libros.put(libro.getId(), libro);
+        System.out.println("ID asignado: "+libro.getId());
         System.out.println(" Libro agregado correctamente por el bibliotecario.");
     }
 
@@ -19,9 +20,9 @@ public class CollectionLibro {
 
     public static void listar() {
         if (libros.isEmpty()) {
-            System.out.println("📚 No hay libros registrados.");
+            System.out.println("No hay libros registrados.");
         } else {
-            System.out.println("\n📖 Lista de libros:");
+            System.out.println("\nLista de libros:");
             for (Libro libro : libros.values()) {
                 libro.mostrarDetalles();
             }

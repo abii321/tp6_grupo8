@@ -17,8 +17,8 @@ public class Libro {
     }
 
     public int getId() { return id; }
-    public boolean isEstado() { return estado; }
     public void setEstado(boolean estado) { this.estado = estado; }
+    public boolean getEstado() { return estado; }
 
     public void mostrarDatos(){
         System.out.println( (estado) ? "Disponible" : "No disponible");
